@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #problem {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 100px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .check-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .next-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .check-btn:hover, .next-btn:hover {
+            opacity: 0.8;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        #score {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Арифметичні завдання</h1>
+
+    <div id="problem"></div>
+
+    <input type="number" id="answer" placeholder="Ваша відповідь">
+    
+    <div class="buttons">
+        <button class="check-btn" onclick="checkAnswer()">Перевірити</button>
+        <button class="next-btn" onclick="nextProblem()">Наступне завдання</button>
+    </div>
+
+    <div id="result"></div>
+    <div id="score"></div>
+</div>
+
+<script>
+    // Змінні для зберігання результатів
+    let correctAnswers = 0;
+    let totalQuestions = 0;
+    const maxQuestions = 5;
+
+    let num1, num2, operation, correctResult;
+
+    // Операції, які використовуватимуться в завданнях
+    const operations = ['+', '-', '*', '/'];
+
+    // Функція для генерації випадкового числа від 0 до 9
+    function getRandomNumber() {
+        return Math.floor(Math.random() * 10);
+    }
+
+    // Функція для генерації випадкової операції
+    function getRandomOperation() {
+        return operations[Math.floor(Math.random() * operations.length)];
+    }
+
+    // Функція для створення нового арифметичного завдання
+    function generateProblem() {
+        num1 = getRandomNumber();
+        num2 = getRandomNumber();
+        operation = getRandomOperation();
+
+        // Запобігання діленню на 0
+        if (operation === '/' && num2 === 0) {
+            num2 = getRandomNumber() + 1; // Генеруємо нове значення для num2
+        }
+
+        // Вираховуємо правильну відповідь
+        switch (operation) {
+            case '+':
+                correctResult = num1 + num2;
+                break;
+            case '-':
+                correctResult = num1 - num2;
+                break;
+            case '*':
+                correctResult = num1 * num2;
+                break;
+            case '/':
+                correctResult = (num1 / num2).toFixed(2); // Ділення з округленням до 2 знаків
+                break;
+        }
+
+        // Виводимо завдання на сторінку
+        document.getElementById("problem").innerText = `${num1} ${operation} ${num2} =`;
+        document.getElementById("answer").value = ''; // Очищаємо поле для вводу
+        document.getElementById("result").innerText = ''; // Очищаємо результат
+    }
+
+    // Функція для перевірки відповіді
+    function checkAnswer() {
+        const userAnswer = parseFloat(document.getElementById("answer").value);
+        totalQuestions++;
+
+        if (userAnswer === correctResult) {
+            document.getElementById("result").innerText = "Правильно!";
+            correctAnswers++;
+        } else {
+            document.getElementById("result").innerText = `Помилка, правильна відповідь: ${correctResult}`;
+        }
+
+        updateScore();
+    }
+
+    // Функція для оновлення рахунку
+    function updateScore() {
+        const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+        document.getElementById("score").innerText = `Загальний рахунок: ${percentage}% (${correctAnswers} правильних відповідей з ${totalQuestions})`;
+
+        if (totalQuestions >= maxQuestions) {
+            document.getElementById("result").innerText += " Тест завершено!";
+            document.querySelector(".next-btn").disabled = true;
+            document.querySelector(".check-btn").disabled = true;
+        }
+    }
+
+    // Функція для переходу до наступного завдання
+    function nextProblem() {
+        if (totalQuestions < maxQuestions) {
+            generateProblem();
+        }
+    }
+
+    // Генеруємо перше завдання при завантаженні сторінки
+    window.onload = generateProblem;
+</script>
+
+</body>
+</html>

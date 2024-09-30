@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .folder {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ієрархічне дерево</h1>
+
+<ul>
+    <li>
+        <span class="folder" onclick="toggleVisibility(this)">fruits</span>
+        <ul class="hidden">
+            <li>apple</li>
+            <li>pineapple</li>
+            <li>appricot</li>
+            <li>pear</li>
+            <li>lemon</li>
+        </ul>
+    </li>
+    <li>
+        <span class="folder" onclick="toggleVisibility(this)">vegetables</span>
+        <ul class="hidden">
+            <li>potatoes</li>
+            <li>beetroot</li>
+            <li>carrots</li>
+            <li>pear</li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+    // Функція для згортання/розгортання списку
+    function toggleVisibility(element) {
+        const subList = element.nextElementSibling;
+        if (subList.classList.contains('hidden')) {
+            subList.classList.remove('hidden');
+        } else {
+            subList.classList.add('hidden');
+        }
+    }
+</script>
+
+</body>
+</html>

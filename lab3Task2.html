@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        #display {
+            height: 100px;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .keyboard {
+            margin-bottom: 20px;
+        }
+
+        .keyboard button {
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 2px solid #007bff;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .keyboard button:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .clear-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <textarea id="display" placeholder="..." readonly></textarea>
+
+    <div class="keyboard" id="keyboard"></div>
+
+    <button class="clear-btn" onclick="clearText()">Очистити поле</button>
+</div>
+
+<script>
+    // Масив з цифрами і літерами українського алфавіту
+    let keyboardLayout = {
+        "digits": ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        "letters": ['а', 'б', 'в', 'г', 'д', 'е', 'є', 'ж', 'з', 'и', 'і', 'ї', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ю', 'я']
+    };
+
+    // Функція для створення клавіатури
+    function createKeyboard() {
+        let keyboard = document.getElementById("keyboard");
+        let keys = '';
+
+        // Додавання цифр у верхній рядок
+        keyboardLayout.digits.forEach(function(digit) {
+            keys += `<button onclick="addSymbol('${digit}')">${digit}</button>`;
+        });
+        keys += '<br>'; // Перехід на новий рядок
+
+        // Додавання літер в три рядки
+        keyboardLayout.letters.forEach(function(letter, index) {
+            if (index % 11 === 0 && index !== 0) {
+                keys += '<br>'; // Новий рядок після кожних 11 літер
+            }
+            keys += `<button onclick="addSymbol('${letter}')">${letter}</button>`;
+        });
+
+        keyboard.innerHTML = keys;
+    }
+
+    // Функція для додавання символу в текстове поле
+    function addSymbol(symbol) {
+        document.getElementById("display").value += symbol;
+    }
+
+    // Функція для очищення текстового поля
+    function clearText() {
+        document.getElementById("display").value = "";
+    }
+
+    // Створюємо клавіатуру при завантаженні сторінки
+    window.onload = createKeyboard;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестування</title>
+</head>
+<body>
+    <h2>Тестування</h2>
+
+    <form id="testForm">
+        <!-- Radio кнопки (група 1) -->
+        <p>1. Який колір неба? (оберіть один варіант)</p>
+        <input type="radio" name="pol0" value="1"> Синій <br>
+        <input type="radio" name="pol0" value="0"> Зелений <br>
+        <input type="radio" name="pol0" value="0"> Червоний <br>
+        <input type="radio" name="pol0" value="0"> Жовтий <br>
+        <Result0> <span id="rezultatRadio0"></span><p>
+
+        <!-- Radio кнопки (група 2) -->
+        <p>2. Який день тижня після понеділка? (оберіть один варіант)</p>
+        <input type="radio" name="pol1" value="0"> П'ятниця <br>
+        <input type="radio" name="pol1" value="1"> Вівторок <br>
+        <input type="radio" name="pol1" value="0"> Субота <br>
+        <input type="radio" name="pol1" value="0"> Неділя <br>
+        <Result1> <span id="rezultatRadio1"></span><p>
+
+        <!-- Прапорці (група 1) -->
+        <p>3. Оберіть правильні столиці (оберіть два варіанти):</p>
+        <input type="checkbox" name="cb0" value="1"> Київ <br>
+        <input type="checkbox" name="cb0" value="1"> Лондон <br>
+        <input type="checkbox" name="cb0" value="0"> Пекін <br>
+        <input type="checkbox" name="cb0" value="0"> Париж <br>
+        <Result2> <span id="rezultatCheckbox0"></span><p>
+
+        <!-- Прапорці (група 2) -->
+        <p>4. Оберіть правильні математичні рівняння (оберіть два варіанти):</p>
+        <input type="checkbox" name="cb1" value="1"> 2 + 2 = 4 <br>
+        <input type="checkbox" name="cb1" value="0"> 5 - 3 = 1 <br>
+        <input type="checkbox" name="cb1" value="1"> 3 * 3 = 9 <br>
+        <input type="checkbox" name="cb1" value="0"> 4 / 2 = 3 <br>
+        <Result3> <span id="rezultatCheckbox1"></span><p>
+
+        <!-- Список одинарного вибору -->
+        <p>5. Яка столиця України?</p>
+        <select name="sel0">
+            <option value="0">Одеса</option>
+            <option value="0">Харків</option>
+            <option value="1">Київ</option>
+            <option value="0">Львів</option>
+        </select>
+        <Result4> <span id="rezultatSelect0"></span><p>
+
+        <!-- Список множинного вибору -->
+        <p>6. Оберіть правильні країни Європи (оберіть два варіанти):</p>
+        <select name="sel1" multiple>
+            <option value="1">Німеччина</option>
+            <option value="0">Канада</option>
+            <option value="1">Франція</option>
+            <option value="0">Японія</option>
+        </select>
+        <Result5> <span id="rezultatSelect1"></span><p>
+
+        <!-- Однорядкове текстове поле -->
+        <p>7. Яке найбільше місто України?</p>
+        <input type="text" name="text0" placeholder="Введіть відповідь">
+        <Result6> <span id="rezultatText0"></span><p>
+
+        <button type="button" onclick="calculateResult()">Завершити тестування</button>
+    </form>
+
+    <!-- Таблиця для результатів -->
+    <h3>Результати:</h3>
+    <table id="resultsTable" border="1">
+        <thead>
+            <tr>
+                <th>Запитання</th>
+                <th>Обрані варіанти</th>
+                <th>Бали</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Загальний бал -->
+    <p>Загальний бал: <span id="totalScore"></span></p>
+
+    <script>
+        function calculateResult() {
+            let form = document.forms['testForm'];
+            let totalScore = 0;
+            let tableBody = document.querySelector("#resultsTable tbody");
+            tableBody.innerHTML = ""; // Очищення таблиці перед новим підрахунком
+
+            // Обробка радіокнопок (питання 1 і 2)
+            for (let i = 0; i < 2; i++) {
+                let radios = form['pol' + i];
+                let selectedValue = 0;
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        selectedValue = parseFloat(radio.value);
+                        break;
+                    }
+                }
+                totalScore += selectedValue;
+                addRowToTable(`Питання ${i + 1}`, getSelectedRadioText(radios), selectedValue);
+            }
+
+            // Обробка прапорців (питання 3 і 4)
+            for (let i = 0; i < 2; i++) {
+                let checkboxes = form['cb' + i];
+                let selectedCount = 0;
+                let correctCount = 0;
+                let selectedOptions = [];
+                for (let checkbox of checkboxes) {
+                    if (checkbox.checked) {
+                        selectedCount++;
+                        selectedOptions.push(checkbox.nextSibling.textContent.trim());
+                        if (parseFloat(checkbox.value) === 1) correctCount++;
+                    }
+                }
+
+                let score = 0;
+                if (selectedCount === 2) score = correctCount;
+                totalScore += score;
+                addRowToTable(`Питання ${i + 3}`, selectedOptions.join(", "), score);
+            }
+
+            // Обробка списку одинарного вибору (питання 5)
+            let sel0 = form['sel0'];
+            let selectedValue = parseFloat(sel0.value);
+            totalScore += selectedValue;
+            addRowToTable("Питання 5", sel0.options[sel0.selectedIndex].text, selectedValue);
+
+            // Обробка списку множинного вибору (питання 6)
+            let sel1 = form['sel1'];
+            let selectedCount = 0;
+            let correctCount = 0;
+            let selectedOptions = [];
+            for (let option of sel1.options) {
+                if (option.selected) {
+                    selectedCount++;
+                    selectedOptions.push(option.text);
+                    if (parseFloat(option.value) === 1) correctCount++;
+                }
+            }
+
+            let score = 0;
+            if (selectedCount === 2) score = correctCount;
+            totalScore += score;
+            addRowToTable("Питання 6", selectedOptions.join(", "), score);
+
+            // Обробка текстового поля (питання 7)
+            let text0 = form['text0'].value.trim().toLowerCase();
+            let correctAnswer = "київ";
+            let textScore = (text0 === correctAnswer) ? 1 : 0;
+            totalScore += textScore;
+            addRowToTable("Питання 7", form['text0'].value, textScore);
+
+            // Виведення загального балу
+            document.getElementById("totalScore").textContent = totalScore;
+        }
+
+        function addRowToTable(question, answer, score) {
+            let tableBody = document.querySelector("#resultsTable tbody");
+            let row = tableBody.insertRow();
+            row.insertCell(0).textContent = question;
+            row.insertCell(1).textContent = answer;
+            row.insertCell(2).textContent = score;
+        }
+
+        function getSelectedRadioText(radios) {
+            for (let radio of radios) {
+                if (radio.checked) {
+                    return radio.nextSibling.textContent.trim();
+                }
+            }
+            return "";
+        }
+
+    </script>
+</body>
+</html>

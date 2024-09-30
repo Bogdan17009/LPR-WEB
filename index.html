@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список Завдань</title>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+        }
+        #sidebar {
+            width: 200px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-right: 1px solid #ccc;
+        }
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .link {
+            display: block;
+            padding: 8px;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .link:hover {
+            background-color: #ddd;
+            border: 1px solid #aaa;
+        }
+        iframe {
+            width: 100%;
+            height: 600px; /* Висота вікна */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <h2>Завдання</h2>
+        <a href="#" class="link" onclick="loadContent('lab1Task1.html')">Lab 1 Task 1</a>
+        <a href="#" class="link" onclick="loadContent('lab1Task2.html')">Lab 1 Task 2</a>
+        <a href="#" class="link" onclick="loadContent('lab1Task3.html')">Lab 1 Task 3</a>
+        <a href="#" class="link" onclick="loadContent('lab1Task4.html')">Lab 1 Task 4</a>
+        <a href="#" class="link" onclick="loadContent('lab1Task5.html')">Lab 1 Task 5</a>
+        <a href="#" class="link" onclick="loadContent('lab1Task6.html')">Lab 1 Task 6</a>
+        <a href="#" class="link" onclick="loadContent('lab1Task7.html')">Lab 1 Task 7</a>
+        <a href="#" class="link" onclick="loadContent('lab2Task1.html')">Lab 2 Task 1</a>
+        <a href="#" class="link" onclick="loadContent('lab2Task2.html')">Lab 2 Task 2</a>
+        <a href="#" class="link" onclick="loadContent('lab2Task3.html')">Lab 2 Task 3</a>
+        <a href="#" class="link" onclick="loadContent('lab2Task4.html')">Lab 2 Task 4</a>
+        <a href="#" class="link" onclick="loadContent('lab2Task5.html')">Lab 2 Task 5</a>
+        <a href="#" class="link" onclick="loadContent('lab3Task1.html')">Lab 3 Task 1</a>
+        <a href="#" class="link" onclick="loadContent('lab3Task2.html')">Lab 3 Task 2</a>
+        <a href="#" class="link" onclick="loadContent('lab3Task3.html')">Lab 3 Task 3</a>
+        <a href="#" class="link" onclick="loadContent('lab3Task4.html')">Lab 3 Task 4</a>
+        <a href="#" class="link" onclick="loadContent('lab3Task5.html')">Lab 3 Task 5</a>
+        <a href="#" class="link" onclick="loadContent('lab3Task6.html')">Lab 3 Task 6</a>
+        <a href="#" class="link" onclick="loadContent('lab4Task.html')">Lab 4Task</a>
+    </div>
+
+<div id="content">
+    <h2>Вміст Завдання</h2>
+    <iframe id="taskContent" src="" frameborder="0"></iframe>
+</div>
+
+<script>
+    function loadContent(task) {
+        const contentIframe = document.getElementById('taskContent');
+        contentIframe.src = `/home/bogdan/LPR-WEB/${task}`;
+    }
+</script>
+
+</body>
+</html>

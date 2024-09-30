@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .calculator {
+            width: 250px;
+            margin: 50px auto;
+            background-color: #bfc1c1;
+            padding: 10px;
+        }
+        .calculator input {
+            font-size: 24px;
+            text-align: right;
+        }
+        .calculator button {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <form name="calc">
+            <input type="text" class="form-control mb-3" name="display" id="display" disabled>
+        </form>
+
+        <div class="row">
+            <div class="col-3 mb-2">
+                <button class="btn btn-danger btn-block" onclick="clearDisplay()">C</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-secondary btn-block" onclick="appendToDisplay('(')">(</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-secondary btn-block" onclick="appendToDisplay(')')">)</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-secondary btn-block" onclick="appendToDisplay('/')">/</button>
+            </div>
+
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('7')">7</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('8')">8</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('9')">9</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-secondary btn-block" onclick="appendToDisplay('*')">*</button>
+            </div>
+
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('4')">4</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('5')">5</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('6')">6</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-secondary btn-block" onclick="appendToDisplay('-')">-</button>
+            </div>
+
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('1')">1</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('2')">2</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('3')">3</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-secondary btn-block" onclick="appendToDisplay('+')">+</button>
+            </div>
+
+            <div class="col-6 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('0')">0</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-light btn-block" onclick="appendToDisplay('.')">.</button>
+            </div>
+            <div class="col-3 mb-2">
+                <button class="btn btn-primary btn-block" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        function appendToDisplay(value) {
+            document.calc.display.value += value;
+        }
+
+        function clearDisplay() {
+            document.calc.display.value = '';
+        }
+
+        function calculate() {
+            try {
+                document.calc.display.value = eval(document.calc.display.value);
+            } catch (error) {
+                document.calc.display.value = 'Помилка';
+            }
+        }
+    </script>
+
+</body>
+</html>

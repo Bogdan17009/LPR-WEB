@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №1</title>
+    <script>
+        // Функція для обчислення формули F
+        function calculateF() {
+            let x = parseFloat(document.getElementById('x').value);
+            let y = parseFloat(document.getElementById('y').value);
+            let z = parseFloat(document.getElementById('z').value);
+            
+            if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
+                if (y !== 0) {  // Перевірка на ділення на нуль
+                    let F = Math.pow((1 - x / y), 2) + z;
+                    alert('Результат F = ' + F.toFixed(2));
+                } else {
+                    alert("Значення 'y' не може бути нульовим, оскільки відбудеться ділення на нуль.");
+                }
+            } else {
+                alert("Будь ласка, введіть коректні значення для всіх змінних.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>Завдання 1.</h3>
+    <p>Це звичайний HTML абзац.</p>
+
+    <script language="JavaScript">
+        document.write("Привіт! Мене звати Павлюк Богдан Русланович, студент групи ІП-41.");
+    </script>
+
+    <p>Знову звичайний HTML абзац.</p>
+
+    <form>
+        <input type="button" value="Натисни на мене" onClick="alert('Я народився 08.03.2004 року в місті Івано-Франківськ')">
+    </form>
+
+    <h3>Завдання 2. Обчислення формули</h3>
+    
+    <p>Введіть значення змінних x, y, z для обчислення формули:</p>
+    <label for="x">x: </label><input type="number" id="x" placeholder="Введіть значення x"><br><br>
+    <label for="y">y: </label><input type="number" id="y" placeholder="Введіть значення y"><br><br>
+    <label for="z">z: </label><input type="number" id="z" placeholder="Введіть значення z"><br><br>
+    
+    <input type="button" value="Обчислити F" onClick="calculateF()">
+    
+    <h3>Завдання 3. Обробка подій</h3>
+
+    <!-- Форма з текстовими полями -->
+    <form id="main_form">
+        <!-- Перше текстове поле з подією onClick -->
+        <input type="text" size="50" value="Натисніть на це поле" onClick="fun('Відбувся клік на текстовому полі');"><br><br>
+
+        <!-- Друге текстове поле з подією onMouseOut -->
+        <input type="text" size="50" value="Наведіть курсор і потім відведіть" onMouseOut="fun1('Курсор покинув текстове поле');"><br><br>
+
+        <!-- Третє текстове поле для виведення результату першої події -->
+        <input type="text" size="50" id="t_res" placeholder="Тут будуть повідомлення після кліку"><br><br>
+
+        <!-- Четверте текстове поле для виведення результату другої події -->
+        <input type="text" size="50" id="t_res2" placeholder="Тут будуть повідомлення після наведення">
+    </form>
+
+    <script>
+        // Функція для запису тексту в перше текстове поле
+        function fun(a) {
+            document.getElementById('t_res').value = a;
+        }
+
+        // Функція для запису тексту в друге текстове поле
+        function fun1(a) {
+            document.getElementById('t_res2').value = a;
+        }
+    </script>
+
+</body>
+</html>

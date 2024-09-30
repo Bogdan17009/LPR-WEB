@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Склад товарів</title>
+    <script language="JavaScript">
+        let product = ["Зошит", "Ручка", "Зубна паста"];
+        let quantity = [105, 200, 50];
+        let cost = [26, 10.5, 15];
+
+        let foundIndex = -1;
+
+        function fun1() {
+            const productName = document.form1.name_cont.value;
+            foundIndex = product.indexOf(productName);
+
+            if (foundIndex !== -1) {
+                document.form1.output_quantity.value = quantity[foundIndex];
+                document.form1.output_cost.value = cost[foundIndex];
+            } else {
+                document.form1.output_quantity.value = "Товар не знайдено";
+                document.form1.output_cost.value = "Товар не знайдено";
+            }
+        }
+
+        function fun2() {
+            if (foundIndex !== -1) {
+                const total = quantity[foundIndex] * cost[foundIndex];
+                document.form1.output_total.value = "Загальна сума: " + total + " грн";
+            } else {
+                document.form1.output_total.value = "Спочатку знайдіть товар!";
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name="form1">
+        Введіть назву товару:
+        <input type="text" name="name_cont">
+        <input type="button" value="Наявна кількість і вартість" onClick="fun1()">
+        <br>
+        Кількість на складі:
+        <input type="text" size="70" name="output_quantity" readonly>
+        <br>
+        Вартість за одиницю:
+        <input type="text" size="70" name="output_cost" readonly>
+        <br>
+        <input type="button" value="Загальна сума" onClick="fun2()">
+        <br>
+        <input type="text" size="70" name="output_total" readonly>
+    </form>
+</body>
+</html>

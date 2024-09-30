@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        console.info("Це інформаційне повідомлення");
+        
+        console.warn("Це попередження!");
+        
+        console.error("Це помилка!");
+        
+        let obj = {name: "Богдан", age: 20, skills: {programming: true, languages: "Python"}};
+        console.dir(obj);
+        
+        console.dirxml(document.body);
+        
+        console.time("Таймер");
+        for (let i = 0; i < 1000000; i++) {}
+        console.timeEnd("Таймер");
+        
+        console.profile("Профіль 1");
+        for (let i = 0; i < 1000000; i++) {}
+        console.profileEnd("Профіль 1");
+        
+        let x = 5;
+        console.assert(x === 10, "x не дорівнює 10");
+    </script>
+
+</head>
+<body>
+</body>
+</html>
